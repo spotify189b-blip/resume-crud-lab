@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once 'config/db.php';
 
 // Student profile (starter table)
@@ -51,7 +52,11 @@ if ($stmt) {
 </head>
 <body>
 <div class="container">
-    <p><a href="skills.php" style="display:inline-block;padding:12px 18px;background:#135c9a;color:white;border-radius:10px;text-decoration:none">Manage Skills (CRUD Lab) →</a></p>
+    <p><a href="skills.php" style="display:inline-block;padding:12px 18px;background:#135c9a;color:white;border-radius:10px;text-decoration:none;">Manage Skills (CRUD Lab) &rarr;</a>
+    <form action="logout.php" method="POST" style="display:inline-block; margin-left: 10px;">
+        <input type="hidden" name="auth_token" value="<?php echo $_SESSION['csrf_token'] ?? $_SESSION['auth_token'] ?? ''; ?>">
+        <button type="submit" style="padding: 12px 18px; background: #dc3545; color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: bold;">Logout</button>
+    </form></p>
     <header class="hero card">
         <img class="avatar" src="assets/images/<?php echo $profile ? htmlspecialchars($profile['photo']) : 'student.jpg'; ?>" alt="Profile Photo">
         <div>
